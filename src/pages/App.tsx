@@ -17,7 +17,7 @@ export const App = () => {
     <>
       <Navbar />
       <Box w='100%' minH='calc(100vh - 74px - 66px)' p={6}>
-        {pathname === '/Pokemon-TCG-Pokedex' ? (
+        {pathname === '/Pokemon-TCG-Pokedex' || pathname === '/Pokemon-TCG-Pokedex/' ? (
           <Flex mt='12vh' align='center' justifyContent='center' direction='column'>
             <Box maxW={500}>
               <Image fallback={<Box w={[300, 500]} display='flex' alignItems='center' justifyContent='center'><Spinner color='red.500' size='xl' /></Box>} src='https://images.pokemontcg.io/bp/logo.png' />
