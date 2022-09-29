@@ -1,4 +1,7 @@
-import { Box, Flex, Heading, Text, Button, Image, Spinner } from "@chakra-ui/react"
+import { useState, useEffect } from 'react';
+import { useAppDispatch } from '../store/hooks';
+import { resetDeckList } from '../store/modules/deckSlice';
+import { Box, Flex, Heading, Text, Button, Image, Spinner, useToast } from "@chakra-ui/react"
 import { CgTrashEmpty } from "react-icons/cg";
 import { Outlet, useLocation } from "react-router-dom";
 import { Footer } from "../components/Footer";
@@ -6,12 +9,40 @@ import { Navbar } from "../components/Navbar";
 import { ScrollToTop } from "../components/ScrollToTop";
 
 export const App = () => {
+  // state
   const { pathname } = useLocation()
+  const [cacheDataExist, setCacheDataExist] = useState(false)
+  const toast = useToast()
+
+  // methods
+  const dispatch = useAppDispatch();
+  const checkCacheDataExist = () => {
+    if (localStorage.getItem('setCardList') || localStorage.getItem('setsList') || localStorage.getItem('deckList')) {
+      return setCacheDataExist(false)
+    } else {
+      return setCacheDataExist(true)
+    }
+  }
   const clearLocalStorage = () => {
     localStorage.removeItem('setCardList')
     localStorage.removeItem('setsList')
+    localStorage.removeItem('deckList')
     localStorage.removeItem('chakra-ui-color-mode')
+    setCacheDataExist(true)
+    dispatch(resetDeckList())
+    toast({
+      title: '清除成功',
+      description: "緩存資料已清除",
+      status: 'success',
+      duration: 1500,
+      isClosable: true,
+    })
   }
+
+  // hooks
+  useEffect(() => {
+    checkCacheDataExist()
+  })
 
   return (
     <>
@@ -25,7 +56,7 @@ export const App = () => {
             <Heading as='h1' size={['xl', '4xl']} mt={10}>歡迎來到寶可夢TCG圖鑑中心</Heading>
             <Heading as='h2' size={['sm', 'md']} mt={4} color='gray'>本系統會緩存資料於您的瀏覽器中，如須清除請手動點擊下面按鈕。</Heading>
             <Text mt={4} textAlign='center'>
-              <Button leftIcon={<CgTrashEmpty />} colorScheme='green' borderRadius='99em' fontSize='sm' onClick={() => clearLocalStorage()}>清除緩存資料</Button>
+              <Button isDisabled={cacheDataExist} leftIcon={<CgTrashEmpty />} colorScheme='green' borderRadius='full' fontSize='sm' onClick={() => clearLocalStorage()}>清除緩存資料</Button>
             </Text>
           </Flex>
         ) : (

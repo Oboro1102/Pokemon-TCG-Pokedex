@@ -30,7 +30,7 @@ export const ScrollToTop = () => {
     return (
         <Fade in={scrollPosition > 0}>
             <Circle position='fixed' bottom='5vh' right='1rem' size='40px' bg='blue.400' color='white' cursor='pointer' onClick={() => scrollToTop()}>
-                <Icon boxSize='1.5em' as={CgChevronUp} />
+                <Icon as={CgChevronUp} boxSize='1.5em' />
             </Circle>
         </Fade>
     )

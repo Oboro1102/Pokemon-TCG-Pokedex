@@ -17,6 +17,7 @@
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
     "chart.js": "^3.9.1",
+    "exceljs": "^4.3.0",
     "framer-motion": "^6.5.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",

@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
+import { useAppDispatch } from '../../store/hooks';
+import { addDeckList } from '../../store/modules/deckSlice';
 import { Box, Flex, Text, Image, Spinner, Divider, Tag, Icon, Center, Button, Badge, Table, Thead, Tbody, Tr, Th, Td, TableContainer } from "@chakra-ui/react"
-import { CgImage, CgCheck, CgClose, CgShoppingCart } from "react-icons/cg";
+import { CgImage, CgCheck, CgClose, CgShoppingCart, CgImport } from "react-icons/cg";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,7 +24,7 @@ ChartJS.register(
 
 export const Card = () => {
   // state
-  let selectedCard = null
+  let selectedCard: any | null = null
   const { id } = useParams()
   const setId = id && id.split('-')[0]
   const source = localStorage.getItem('setCardList')
@@ -49,6 +51,9 @@ export const Card = () => {
   if (source) {
     selectedCard = JSON.parse(source)[`${setId}`].find((item: { id: string }) => item.id === id)
   }
+
+  // methods
+  const dispatch = useAppDispatch();
 
   // template
   const subtypes = (selectedCard.subtypes && selectedCard.subtypes.map((item: string, index: number) => (<Tag key={index} ml={2} colorScheme='green'>{item}</Tag>)))
@@ -163,6 +168,9 @@ export const Card = () => {
             <Text display='flex' alignItems='center' fontSize='4xl' fontWeight='bold'>{selectedCard.name}{subtypes}</Text>
             <Text fontSize='md' color='gray.500'>{selectedCard.flavorText}</Text>
             {selectedCard.artist && (<Text display='inline-flex' alignItems='center' fontSize='sm' color='yellow.500' fontWeight='bold'><Icon as={CgImage} mr={1} />繪師：{selectedCard.artist}</Text>)}
+            <Box mt={2}>
+              <Button rightIcon={<CgImport />} size='sm' colorScheme='purple' borderRadius='full' onClick={() => dispatch(addDeckList(selectedCard))}>放入牌組</Button>
+            </Box>
           </Box>
           {selectedCard.legalities.standard && selectedCard.legalities.expanded &&
             (<Flex my={2} align='center' textAlign='center' color='white'>
@@ -191,7 +199,7 @@ export const Card = () => {
             <Flex mb={4} align='center' justify='space-between'>
               <Text fontSize='lg' fontWeight='bold'>TCGplayer<Badge ml={2} colorScheme='gray' variant='subtle'>美元計價</Badge></Text>
               <a href={selectedCard.tcgplayer.url} target="_blank" rel="noopener noreferrer">
-                <Button colorScheme='blue' borderRadius='99em' size='sm'><Icon as={CgShoppingCart} mr={1} />前往購買</Button>
+                <Button colorScheme='blue' borderRadius='full' size='sm'><Icon as={CgShoppingCart} mr={1} />前往購買</Button>
               </a>
             </Flex>
             <Line options={chartOptions} data={chartDataMapping('tcgplayer', selectedCard.tcgplayer.prices)} />
@@ -202,7 +210,7 @@ export const Card = () => {
             <Flex mb={4} align='center' justify='space-between'>
               <Text fontSize='lg' fontWeight='bold'>Cardmarket<Badge ml={2} colorScheme='gray' variant='subtle'>歐元計價</Badge></Text>
               <a href={selectedCard.cardmarket.url} target="_blank" rel="noopener noreferrer">
-                <Button colorScheme='blue' borderRadius='99em' size='sm'><Icon as={CgShoppingCart} mr={1} />前往購買</Button>
+                <Button colorScheme='blue' borderRadius='full' size='sm'><Icon as={CgShoppingCart} mr={1} />前往購買</Button>
               </a>
             </Flex>
             <Line options={chartOptions} data={chartDataMapping('cardmarket', selectedCard.cardmarket.prices)} />
@@ -211,7 +219,7 @@ export const Card = () => {
           </Box>
         </Flex>
       </Box >
-    </Flex>
+    </Flex >
   ) : (
     <Flex mt='35vh' align='center' justifyContent='center'>
       <Spinner

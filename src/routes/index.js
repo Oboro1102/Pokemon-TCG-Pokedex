@@ -8,9 +8,11 @@ import { ErrorPage } from '../pages/ErrorPage';
 
 export const router = createBrowserRouter([
     {
+        path: "*",
+        element: <ErrorPage />,
+    }, {
         path: "/Pokemon-TCG-Pokedex",
         element: <App />,
-        errorElement: <ErrorPage />,
         children: [
             {
                 path: "sets",

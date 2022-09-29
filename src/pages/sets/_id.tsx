@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { cardList, setCardList, reset } from '../../store/modules/setsSlice';
+import { addDeckList } from '../../store/modules/deckSlice';
 import API from "../../api/index"
-import { SimpleGrid, Image, Flex, Spinner, Box } from "@chakra-ui/react"
+import { SimpleGrid, Image, Flex, Spinner, Button, Icon, Box, Tooltip } from "@chakra-ui/react"
+import { CgImport } from "react-icons/cg";
 import { Link, useParams } from "react-router-dom";
 
 export const Set = () => {
@@ -13,7 +15,6 @@ export const Set = () => {
 
   // methods
   const dispatch = useAppDispatch();
-
   const getCardList = () => {
     dispatch(reset())
 
@@ -51,16 +52,25 @@ export const Set = () => {
 
   // template
   const setsListItems = (list.map((item: {
-    id: string, name: string, images: { large: string, small: string }
+    id: string, name: string, images: { large: string, small: string }, number: string
   }) =>
-  (<Link to={`/Pokemon-TCG-Pokedex/card/${item.id}`} key={item.id}>
-    <Image
-      fallback={<Box w={200} h={300} display='flex' alignItems='center' justifyContent='center'><Spinner color='red.500' size='lg' /></Box>}
-      objectFit='contain'
-      src={item.images.small}
-      mx='auto'
-    />
-  </Link>)
+  (<Box key={item.id} position='relative'>
+    <Box bg='blackAlpha.700' borderRadius='full' boxShadow='xl' position='absolute' bottom='10px' right='10px'>
+      <Tooltip hasArrow label='放入牌組' bg='blue.500' color='white'>
+        <Button p={1} borderRadius='full' variant='ghost' colorScheme='blackAlpha' onClick={() => dispatch(addDeckList(item))}>
+          <Icon as={CgImport} color='white' boxSize='1.25em' />
+        </Button>
+      </Tooltip>
+    </Box>
+    <Link to={`/Pokemon-TCG-Pokedex/card/${item.id}`}>
+      <Image
+        fallback={<Box w={200} h={300} display='flex' alignItems='center' justifyContent='center'><Spinner color='red.500' size='lg' /></Box>}
+        objectFit='contain'
+        src={item.images.small}
+        mx='auto'
+      />
+    </Link>
+  </Box >)
   ))
 
   return list.length > 0 ? (

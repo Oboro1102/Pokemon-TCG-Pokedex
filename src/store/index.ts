@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import setsReducer from './modules/setsSlice'
+import deckReducer from './modules/deckSlice'
 
 export const store = configureStore({
     reducer: {
-        sets: setsReducer
+        sets: setsReducer,
+        deck: deckReducer
     }
 })
 

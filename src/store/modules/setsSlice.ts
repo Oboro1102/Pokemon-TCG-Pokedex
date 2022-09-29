@@ -2,28 +2,28 @@ import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '..';
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-// export interface setsState {
-//     list: {
-//         id: string,
-//         name: string,
-//         series: string,
-//         printedTotal: number,
-//         total: number,
-//         legalities: {
-//             unlimited: string
-//         },
-//         ptcgoCode: string,
-//         releaseDate: string,
-//         updatedAt: string,
-//         images: {
-//             symbol: string,
-//             logo: string
-//         }
-//     }[]
-// }
+export interface setsListType {
+    id: string,
+    name: string,
+    series: string,
+    printedTotal: number,
+    total: number,
+    legalities: {
+        standard: string,
+        expanded: string,
+        unlimited: string
+    },
+    ptcgoCode: string,
+    releaseDate: string,
+    updatedAt: string,
+    images: {
+        symbol: string,
+        logo: string
+    }
+}
 
 const initialState = {
-    setsList: [],
+    setsList: [] as setsListType[],
     cardList: []
 }
 
@@ -32,7 +32,7 @@ export const setsSlice = createSlice({
     initialState,
     reducers: {
         reset() { return initialState },
-        setSetsList(state, action: PayloadAction<never[]>) {
+        setSetsList(state, action: PayloadAction<setsListType[]>) {
             state.setsList = action.payload.reverse()
         },
         setCardList(state, action: PayloadAction<never[]>) {

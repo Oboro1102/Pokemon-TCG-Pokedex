@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { setsList, setSetsList, reset } from '../../store/modules/setsSlice';
+import { setsList, setSetsList, reset, setsListType } from '../../store/modules/setsSlice';
 import API from "../../api/index"
 import { Box, SimpleGrid, Flex, Text, Image, Spinner, Center, Icon } from "@chakra-ui/react"
 import { CgCheck, CgClose } from "react-icons/cg";
@@ -33,9 +33,7 @@ export const Sets = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // template
-  const setsListItems = (list.map((item: {
-    id: string, name: string, images: { logo: string, symbol: string }, releaseDate: string, ptcgoCode: string, total: number, legalities: { standard: string | null, expanded: string | null }
-  }) =>
+  const setsListItems = (list.map((item: setsListType) =>
   (<Link to={`/Pokemon-TCG-Pokedex/set/${item.id}`} key={item.id} style={{ display: 'block', height: '100%' }}>
     <Box h='100%' bg='gray.900' p={6} borderRadius='16px' textAlign='center' >
       <Image
