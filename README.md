@@ -17,5 +17,5 @@
 > cache 資料於 localStorage，keyName 為 deckList，匯出資料格式為 xlsx 檔
 
 ### 專案執行指令
-初次執行 `npm install`
-啟動專案 `npm start`
+* 初次執行 `npm install`
+* 啟動專案 `npm start`
