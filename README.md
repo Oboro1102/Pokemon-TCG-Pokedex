@@ -1,31 +1,21 @@
-# Pokemon-TCG-Pokedex
-使用 React hook + Typescript 開發的寶可夢TCG圖鑑。
+# 寶可夢TCG圖鑑
+### 實裝功能
+* 系列清單
+* 系列卡片清單
+* 單卡歐美地區價格資料
+* 牌組建構
+* 牌組資料匯出
+* 清除緩存資料
 
-All data made available by the [Pokémon TCG API](https://pokemontcg.io/)
-This project is not produced, endorsed, supported, or affiliated with Nintendo or The Pokémon Company.
+### 資料使用
+* TCG卡片資料
+> All data made available by the [Pokémon TCG API](https://pokemontcg.io/)
+> This project is not produced, endorsed, supported, or affiliated with Nintendo or The Pokémon Company.
+> 
+> *為避免多次請求，初次讀取會將資料 cache 於 localStorage*
+* 牌組建構匯出
+> cache 資料於 localStorage，keyName 為 deckList，匯出資料格式為 xlsx 檔
 
-***初次啟動專案請先執行 npm i***
----
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br /> You will also see any lint errors
-in the console.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br /> It correctly bundles
-React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br /> Your app is
-ready to be deployed!
-
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
+### 專案執行指令
+初次執行 `npm install`
+啟動專案 `npm start`
