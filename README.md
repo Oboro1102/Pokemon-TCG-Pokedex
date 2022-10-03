@@ -12,7 +12,7 @@
 ### 資料使用
 * TCG卡片資料
 > All data made available by the [Pokémon TCG API](https://pokemontcg.io/)
-
+> 
 > *為避免多次請求，初次讀取會將資料 cache 於 localStorage*
 * 牌組建構匯出
 > cache 資料於 localStorage，keyName 為 deckList，匯出資料格式為 xlsx 檔
